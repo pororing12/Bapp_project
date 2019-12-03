@@ -11,10 +11,11 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 
 import { ListItem } from 'react-native-elements'
-
+import axios from 'axios'
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons'
 
@@ -29,83 +30,132 @@ let SCREEN_HEIGHT = Dimensions.get('window').height
 const CARD_HEIGHT = height / 5;
 const CARD_WIDTH = width - 25;
 
-const list = [
-  {
-    id: 1,
-    name: "pororing",
-    location: "안국역 2번출구",
-    gps: "37.577528" + "," + " " + "126.986071",
-    pr_Image: "../../assets/pets-4415649_1920.jpg"
-  },
-  {
-    id: 2,
-    name: "cake",
-    location: "한국 미술 박물관",
-    gps: "37.580992" + "," + " " + "126.988913",
-    pr_Image: "../../assets/volvo-xc40.jpg"
-  }
-]
 
-function Item({ pr_Image, name, location, gps }) {
-
-  return (
-    <View>
-      <TouchableOpacity style={styles.item}>
-        <View>
-          <Text
-            style={{
-              fontWeight: "700",
-              marginBottom: 10
-            }}>{name}</Text>
-          <Text
-            style={{
-              marginBottom: 10
-            }}>{location}</Text>
-          <Text>{gps}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 export default class FundiGo1 extends Component {
+  constructor() {
+    super()
+    this.state = {
+      lists: [],
+      gpss: []
+    }
+  }
+  async componentDidMount() {
+
+    let lists = await axios.get('http://35.223.204.78:8880/getEveryList')
+      .then(response => (response.data));
+    this.setState({ lists });
+    if (this.state.lists == "0") {
+      Alert.alert("참여자 없음")
+    }
+    console.log(lists)
+    let gpss = await axios.get('http://35.223.204.78:8880/getGpsList')
+      .then(response => (response.data));
+
+    this.setState({ gpss });
+  }
+  _gps = () => {
+    const { gpss } = this.state
+    return gpss.map(gps => {
+      return <View key={gps.id}>
+      </View>
+    })
+  }
+
   render() {
-
+    const { lists, gpss } = this.state;
     return (
-
-      <View
-        style={{
-          flex: 1,
-          marginTop: 50
-        }}>
+      <View>
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView />
+        <View>
+          <TouchableOpacity
+            style={{
+              marginLeft: 330
+
+            }}
+            onPress={() => this.props.navigation.navigate("FundiGoConsumer")}>
+            <AntDesign
+              name="form"
+              size={28}
+              color="#56D1F3"
+            />
+          </TouchableOpacity>
+        </View>
         <View
           style={{
-            alignItems: "center",
-            marginTop: 50,
-            marginBottom: 50
+            justifyContent: "center",
+            alignItems: "center"
           }}>
-          <Text
-            style={{
-              fontWeight: "700",
-              fontSize: 20
-            }}
-          >FundiGo 참여자들</Text>
+          <Text style={styles.title}>fundiGo 참여자들</Text>
         </View>
 
-        <FlatList
-          data={list}
-          renderItem={(
-            { item }) => <Item name={item.name}
+        <ScrollView>
+          {lists ? lists.map(list => (
 
-              location={item.location}
-              gps={item.gps} />}
-          keyExtractor={item => item.id}
+            <View key={list.id}>
+              <TouchableOpacity
+                style={{
 
-        />
+                  borderWidth: 2,
+                  marginLeft: 20,
+                  marginToP: 30,
+                  borderLeftColor: "#56D1F3",
+                  borderRightColor: "#56D1F3",
+                  borderTopColor: "#56D1F3",
+                  borderBottomColor: "white",
 
+                  width: SCREEN_WIDTH / 1.1,
+                  height: SCREEN_HEIGHT / 8,
+                }}
+                onPressIn={() => this.props.navigation.navigate("FundiGoDetail")}>
+                <Text style={{ marginLeft: 20, marginTop: 20 }}>Pororing</Text>
+                <Text style={styles.font}>{list.GPS}</Text>
+                <Text style={{
+                  marginLeft: 20,
+                  marginTop: 20,
+                }}>{list.LOCATION}</Text>
+              </TouchableOpacity>
+            </View>
+          )
+          ) : (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
 
-      </View>
+                }}></View>
+            )}
+          {gpss ? gpss.map(gps => (
+            <TouchableOpacity
+              style={{
+                borderWidth: 2,
+                borderTopColor: "white",
+                borderLeftColor: "#56D1F3",
+                borderRightColor: "#56D1F3",
+                borderBottomColor: "#56D1F3",
+                width: SCREEN_WIDTH / 1.1,
+                height: SCREEN_HEIGHT / 11,
+                marginLeft: 20,
+                marginTop: -20
+              }}
+
+              onPressIn={() => this.props.navigation.navigate("FundiGoDetail")}>
+              <View
+                key={gps.id}>
+                <Text style={styles.fonts}>{gps.latitude}</Text>
+                <Text style={{
+                  marginLeft: 20,
+                  marginTop: 10
+                }}>{gps.longitude}</Text>
+              </View>
+            </TouchableOpacity>
+          )) : (
+              <View></View>
+            )}
+        </ScrollView>
+      </View >
     )
   }
 }
@@ -124,7 +174,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 32,
+    fontWeight: "700",
+
+
   },
+
+  font: {
+    marginLeft: 20,
+  },
+  fonts: {
+    marginTop: 30,
+    marginLeft: 20
+  }
 });
 

@@ -259,7 +259,7 @@ export default class ProfileScreen extends Component {
                                     marginTop: 25,
                                     fontWeight: "500",
                                     fontSize: 15
-                                }}>150</Text>
+                                }}>130</Text>
 
                             <Text
                                 style={{

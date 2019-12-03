@@ -129,7 +129,7 @@ export default class FeedWriteScreen extends React.Component {
 
 
         } else {
-            Alert.alert("Fail")
+            Alert.alert("위치가 일치 하지 않습니다.")
         }
 
         await fetch('http://35.223.204.78:8880/uploadImage', {
@@ -145,18 +145,13 @@ export default class FeedWriteScreen extends React.Component {
             .then((response) => response)
             .then(response => {
                 console.log('upload succes', response);
-                alert('Upload success!');
                 console.log(formData)
-
             })
             .catch(error => {
                 console.log(error)
                 console.log('upload error', error);
-                alert('Upload failed!');
             });
         return this.props.navigation.navigate("FeedTab")
-
-
     }
 
     Feed = (title, image, content, ) => {
@@ -323,7 +318,7 @@ export default class FeedWriteScreen extends React.Component {
                                 color: "white"
 
                             }}>
-                            등록하기
+                            기록하기
                         </Text>
                     </TouchableOpacity>
                 </View>

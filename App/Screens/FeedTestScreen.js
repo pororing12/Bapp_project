@@ -48,8 +48,6 @@ export default class FeedTestScreen extends Component {
             Alert.alert("내용이 없음")
         }
         console.log(feeds)
-
-
     }
 
     async componentWillUpda() {

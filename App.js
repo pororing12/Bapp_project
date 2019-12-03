@@ -42,8 +42,9 @@ import Store3Screen from './App/Screens/Store3';
 import Store4Screen from './App/Screens/Store4';
 import FeedWriteScreen from './App/Screens/FeedWriteScreen';
 import FeedTest from './App/Screens/FeedTest';
-
 import FeedTestScreen from './App/Screens/FeedTestScreen'
+import fundiGoConsumer from './App/Screens/FundiGoconsumer'
+import FundiGo1Detail from './App/Screens/FundiGo1Detail';
 
 
 
@@ -97,6 +98,12 @@ const FundiGoStack = createStackNavigator({
   },
   FundiGo2: {
     screen: FundiGo2
+  },
+  FundiGoConsumer: {
+    screen: fundiGoConsumer
+  },
+  FundiGoDetail: {
+    screen: FundiGo1Detail
   }
 }, {
   headerMode: "none"

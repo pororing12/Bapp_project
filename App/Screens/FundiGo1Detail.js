@@ -31,44 +31,18 @@ export default class FundiGo1Detail extends Component {
         markers: [
             {
                 coordinate: {
-                    latitude: 35.860209,
-                    longitude: 128.606531
+                    latitude: 35.799203,
+                    longitude: 128.523655
                 },
-                title: "김광석거리",
-                description: "대구광역시 중구 대봉동",
-                image: require("../../assets/Location1.jpeg"),
+                title: "대구수목원",
+                description: "대구광역시 달서구",
+                image: require("../../assets/2019-10-31-2.jpg"),
             },
-            {
-                coordinate: {
-                    latitude: 35.872541,
-                    longitude: 128.596812
-                },
-                title: "동성로 동아백화점",
-                description: "대구광역시 중구 동문동 경상감영길 171",
-                image: require("../../assets/Location2.jpg"),
-            },
-            {
-                coordinate: {
-                    latitude: 35.838370,
-                    longitude: 128.575733
-                },
-                title: "반월당역 2번출구",
-                description: "대구광역시 남산동",
-                image: require("../../assets/Location3.jpg")
-            },
-            {
-                coordinate: {
-                    latitude: 35.839485,
-                    longitude: 128.573768
-                },
-                title: "안지랑 곱창골목",
-                description: "대구광역시 남구 대명9동 대명로36길",
-                image: require("../../assets/Location4.jpg"),
-            },
+
         ],
         region: {
-            latitude: 35.861234,
-            longitude: 128.632222,
+            latitude: 35.799203,
+            longitude: 128.523655,
             latitudeDelta: 0.04864195044303443,
             longitudeDelta: 0.040142817690068,
         },

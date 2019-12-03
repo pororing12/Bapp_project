@@ -112,8 +112,6 @@ export default class App extends Component {
                                     marginBottom: 75,
                                     marginLeft: 20
                                 }}>
-
-
                                 <Image source={require("../../assets/south-korea-3648252_1280.jpg")}
                                     style={{
                                         resizeMode: "cover",
@@ -122,11 +120,8 @@ export default class App extends Component {
                                         borderRadius: 10,
                                         marginTop: 2,
                                         marginLeft: 1
-
                                     }} />
                             </ImageBackground>
-
-
                         </MapView.Marker> */}
 
 
